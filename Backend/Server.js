@@ -2,8 +2,21 @@ import express from "express";
 import { Env } from "./src/lib/Env.js";
 import { connectDb } from "./src/lib/Db.js";
 import cors from "cors";
+import path from "path"
+
 
 const app = express();
+
+const __dirname = path.resolve()
+
+
+if(Env.NODE_ENV == "production"){
+    app.use(express.static(path.join(__dirname,"../Frontend/dist")))
+
+    // app.get("/{*any}",(req,res)=>{
+    //     res.sendFile(path.join(__dirname,"../Frontend/dist/index.html"))
+    // })
+}
 
 app.use(
   cors({
@@ -18,6 +31,12 @@ app.get("/", (req, res) => {
     msg: "Success",
   });
 });
+
+app.get("/health",(req,res)=>{
+    res.status(200).json({
+        msg:"Health is good"
+    })
+})
 
 let port = Env.Port;
 

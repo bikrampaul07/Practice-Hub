@@ -1,6 +1,7 @@
 
 import express from "express"
 import { Env } from "./src/lib/Env.js"
+import { connectDb } from "./src/lib/Db.js"
 
 const app=express()
 
@@ -11,6 +12,16 @@ app.get("/",(req,res)=>{
 })
 
 let port=Env.Port
-app.listen(port,()=>{
-    console.log(`Server is running at port ${port}`)
-})
+
+const server= async () =>{
+    try{
+        await connectDb();
+        app.listen(port,()=>{
+            console.log(`App is listening at post ${port}`)
+        })
+    }
+    catch{
+        console.error("there is an error in server")
+    }
+}
+server()

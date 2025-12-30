@@ -4,7 +4,8 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "server": "nodemon Server.js"
+    "server": "nodemon Server.js",
+    "start": "node Server.js"
   },
   "keywords": [],
   "author": "",
@@ -14,8 +15,11 @@
     "nodemon": "^3.1.11"
   },
   "dependencies": {
+    "cors": "^2.8.5",
     "dotenv": "^17.2.3",
     "express": "^5.2.1",
-    "mongoose": "^9.0.2"
+    "inngest": "^3.48.1",
+    "mongoose": "^9.0.2",
+    "practicehub": "file:.."
   }
 }

@@ -10,13 +10,11 @@ const syncUser=inngest.createFunction(
     async ({event})=>{
         await connectDb();
         const {id,first_name,last_name,image_url,email_addresses}=event.data;
-         const primaryEmail = email_addresses?.find(
-      (e) => e.id === primary_email_address_id
-    )?.email_address;
+       
         const newUser = {
             clerkId:id,
             name:`${first_name || ""} ${last_name || ""}`,
-            email:primaryEmail,
+            email:email_addresses[0]?.email_addresses,
             profileImage:image_url
         }
         await User.create(newUser)

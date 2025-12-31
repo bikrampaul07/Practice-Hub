@@ -1,6 +1,6 @@
 import { Inngest } from "inngest";
 import { connectDb} from './Db.js'
-import {User} from '../models/User.js'
+import User from '../models/User.js'
 
 export const inngest = new Inngest({ id: "Practice-Hub" });
 

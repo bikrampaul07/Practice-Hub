@@ -1,22 +1,17 @@
 import express from "express";
+import cors from "cors";
+import path from "path";
+import { serve } from "inngest/express";
+
 import { Env } from "./src/lib/Env.js";
 import { connectDb } from "./src/lib/Db.js";
-import cors from "cors";
-import path from "path"
-
+import { inngest, functions } from "./src/lib/Inngest.js";
 
 const app = express();
+const __dirname = path.resolve();
 
-const __dirname = path.resolve()
-
-
-if(Env.NODE_ENV == "production"){
-    app.use(express.static(path.join(__dirname,"../Frontend/dist")))
-
-    // app.get("/{*any}",(req,res)=>{
-    //     res.sendFile(path.join(__dirname,"../Frontend/dist/index.html"))
-    // })
-}
+/* ---------- MIDDLEWARE ---------- */
+app.use(express.json());
 
 app.use(
   cors({
@@ -24,30 +19,43 @@ app.use(
     credentials: true,
   })
 );
-app.use(express.json());
 
-app.get("/", (req, res) => {
-  res.status(200).json({
-    msg: "Success",
+/* ---------- INNGEST ---------- */
+app.use("/api/inngest", serve({ client: inngest, functions }));
+
+/* ---------- STATIC FILES ---------- */
+if (Env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "../Frontend/dist")));
+
+  app.get("*", (req, res) => {
+    res.sendFile(
+      path.join(__dirname, "../Frontend/dist/index.html")
+    );
   });
+}
+
+/* ---------- ROUTES ---------- */
+app.get("/", (req, res) => {
+  res.status(200).json({ msg: "Success" });
 });
 
-app.get("/health",(req,res)=>{
-    res.status(200).json({
-        msg:"Health is good"
-    })
-})
+app.get("/health", (req, res) => {
+  res.status(200).json({ msg: "Health is good" });
+});
 
-let port = Env.Port;
+/* ---------- SERVER ---------- */
+const PORT = Env.PORT || 3000;
 
-const server = async () => {
+const startServer = async () => {
   try {
     await connectDb();
-    app.listen(port, () => {
-      console.log(`App is listening at post ${port}`);
+    app.listen(PORT, () => {
+      console.log(` App is listening on port ${PORT}`);
     });
-  } catch {
-    console.error("there is an error in server");
+  } catch (error) {
+    console.error(" Server startup error:", error);
+    process.exit(1);
   }
 };
-server();
+
+startServer();

@@ -20,6 +20,8 @@
     "express": "^5.2.1",
     "inngest": "^3.48.1",
     "mongoose": "^9.0.2",
-    "practicehub": "file:.."
+    "practicehub": "file:..",
+    "stream": "^0.0.3",
+    "stream-chat": "^9.27.2"
   }
 }

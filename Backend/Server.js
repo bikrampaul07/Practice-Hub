@@ -2,10 +2,11 @@ import express from "express";
 import cors from "cors";
 import path from "path";
 import { serve } from "inngest/express";
-
 import { Env } from "./src/lib/Env.js";
 import { connectDb } from "./src/lib/Db.js";
 import { inngest, functions } from "./src/lib/Inngest.js";
+import ChatRoutes from "./src/routes/ChatRoutes.js"
+import { clerkMiddleware } from "@clerk/express";
 
 const app = express();
 const __dirname = path.resolve();
@@ -19,9 +20,10 @@ app.use(
     credentials: true,
   })
 );
-
+app.use(clerkMiddleware()) // this will add auth field to give access
 /* ---------- INNGEST ---------- */
 app.use("/api/inngest", serve({ client: inngest, functions }));
+app.use("/api/chats",ChatRoutes)
 
 /* ---------- STATIC FILES ---------- */
 if (Env.NODE_ENV === "production") {

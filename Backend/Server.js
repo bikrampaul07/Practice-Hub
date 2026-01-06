@@ -6,7 +6,9 @@ import { Env } from "./src/lib/Env.js";
 import { connectDb } from "./src/lib/Db.js";
 import { inngest, functions } from "./src/lib/Inngest.js";
 import ChatRoutes from "./src/routes/ChatRoutes.js"
+import SessionRoutes from "./src/routes/SessionRoutes.js"
 import { clerkMiddleware } from "@clerk/express";
+
 
 const app = express();
 const __dirname = path.resolve();
@@ -24,6 +26,7 @@ app.use(clerkMiddleware()) // this will add auth field to give access
 /* ---------- INNGEST ---------- */
 app.use("/api/inngest", serve({ client: inngest, functions }));
 app.use("/api/chats",ChatRoutes)
+app.use("/api/sessions",SessionRoutes)
 
 /* ---------- STATIC FILES ---------- */
 if (Env.NODE_ENV === "production") {

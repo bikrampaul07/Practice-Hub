@@ -56,7 +56,7 @@ function ProblemsPage() {
                     </p>
 
                     {/* Description */}
-                    <p className="text-sm text-base-content/80 mt-1">
+                    <p className="text-sm text-base-content/80 mt-1 line-clamp-1">
                       {problem.description.text}
                     </p>
 

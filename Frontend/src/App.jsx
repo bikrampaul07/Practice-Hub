@@ -2,6 +2,7 @@ import { Navigate, Route, Routes } from 'react-router-dom'
 import Homepage from './Pages/Homepage'
 import ProblemsPage from './Pages/ProblemsPage'
 import DashboardPage from './Pages/DashboardPage'
+import ProblemPage from './Pages/ProblemPage.jsx'
 import { useUser } from '@clerk/clerk-react'
 import { Toaster } from 'react-hot-toast'
 
@@ -27,7 +28,13 @@ function App() {
           path="/problems"
           element={isSignedIn ? <ProblemsPage /> : <Navigate to="/" />}
         />
+
+        <Route
+          path="/problem/:id"
+          element={isSignedIn ? <ProblemPage /> : <Navigate to="/" />}
+        />
       </Routes>
+      
 
       <Toaster toastOptions={{ duration: 3000 }} />
     </>

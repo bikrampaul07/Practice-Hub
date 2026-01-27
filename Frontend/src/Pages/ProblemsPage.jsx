@@ -29,7 +29,7 @@ function ProblemsPage() {
               {problems.map((problem) => (
                 <Link
                   key={problem.id}
-                  to={`/problems/${problem.id}`}
+                  to={`/problem/${problem.id}`}
                   className="card bg-base-200 hover:bg-base-300 transition-all duration-200"
                 >
                   <div className="card-body p-4">

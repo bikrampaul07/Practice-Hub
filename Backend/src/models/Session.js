@@ -12,7 +12,7 @@ host:{
 },
 difficulty:{
     type:String,
-    enum:["easy","moderate","hard"]
+    enum:["easy","medium","hard"]
 }
 ,
 participant:{

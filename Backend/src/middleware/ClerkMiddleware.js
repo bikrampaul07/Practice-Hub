@@ -5,7 +5,7 @@ export const clerkAuth = [
   requireAuth(),
   async (req, res, next) => {
     try {
-      const clerkId = req.auth().userId;
+      const clerkId = req.auth()?.userId;
       console.log(clerkId)
       if (!clerkId)
         return res

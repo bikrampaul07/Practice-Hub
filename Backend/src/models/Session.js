@@ -15,7 +15,7 @@ difficulty:{
     enum:["easy","moderate","hard"]
 }
 ,
-perticipant:{
+participant:{
     type:mongoose.Schema.Types.ObjectId,
     ref:"User",
     default:null
@@ -32,4 +32,4 @@ callId:{
 },{timestamps:true})
 
 const Session=mongoose.model("Session",sessionSchema);
-export default Session
+export default Session;

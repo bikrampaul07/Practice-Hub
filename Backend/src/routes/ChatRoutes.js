@@ -6,4 +6,4 @@ import { Router } from "express"
 const router=Router()
 router.get("/stream",clerkAuth,streamToken)
 
-export default router
+export default router;
